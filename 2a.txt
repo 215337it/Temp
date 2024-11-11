@@ -47,7 +47,7 @@ class railfenceCipherHelper {
     }
 }
 
-class railFenceCipher {
+public class railFenceCipher {
     public static void main(String[] args) throws java.lang.Exception {
         railfenceCipherHelper rf = new railfenceCipherHelper();
         String msg, enc, dec;
