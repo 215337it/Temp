@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage ('Build') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package' // Use 'bat' instead of 'sh' on Windows
             }
             post {
                 success {
@@ -15,19 +15,9 @@ pipeline {
                 }
             }
         }
-        stage ('Deploy to tomcat server') {
+        stage ('Deploy to Tomcat Server') {
             steps {
-                script {
-                    try {
-                        deploy adapters: [tomcat9(
-                            credentialsId: 'Tomcat_Credentials',
-                            path: '',  // Set to '' for root or specify context path
-                            url: 'http://localhost:8090/'
-                        )], contextPath: '', war: '**/*.war'
-                    } catch (Exception e) {
-                        echo "Deployment failed: ${e}"
-                    }
-                }
+                deploy adapters: [tomcat9(credentialsId: 'Tomcat_Credentials', path: '', url: 'http://localhost:8090/')], contextPath: null, war: '**/*.war'
             }
         }
     }
